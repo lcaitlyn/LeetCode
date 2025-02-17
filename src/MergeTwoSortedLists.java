@@ -24,7 +24,7 @@ public class MergeTwoSortedLists {
         ListNode tail = list;
 
         while (tail != null) {
-            System.out.print(tail.val + ", ");
+            System.out.print(tail.val + " ");
             tail = tail.next;
         }
         System.out.println();
