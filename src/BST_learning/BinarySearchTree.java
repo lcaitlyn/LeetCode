@@ -1,4 +1,4 @@
-package BTS_learning;
+package BST_learning;
 
 public interface BinarySearchTree {
     void insert(int value);

@@ -1,4 +1,4 @@
-package BTS_learning;
+package BST_learning;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +17,15 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
         }
     }
 
-    private Node insertRec(Node root, int value) {
-        if (root == null) return new Node(value);
+    private Node insertRec(Node node, int value) {
+        if (node == null) return new Node(value);
 
-        if (value < root.value) {
-            root.left = insertRec(root.left, value);
-        } else if (value > root.value) {
-            root.right = insertRec(root.right, value);
+        if (value < node.value) {
+            node.left = insertRec(node.left, value);
+        } else if (value > node.value) {
+            node.right = insertRec(node.right, value);
         }
-        return root;
+        return node;
     }
 
     public void insert(int value) {

@@ -1,4 +1,4 @@
-package BTS_learning;
+package BST_learning;
 
 public class Program {
     public static void main(String[] args) {
@@ -46,6 +46,5 @@ public class Program {
         tree.balance();
         tree.printInorder();
         System.out.println("height = " + tree.getHeight());
-
     }
 }
