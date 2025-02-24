@@ -41,7 +41,11 @@ public class Program {
             tree.insert(i);
         }
         tree.printInorder();
-
         System.out.println("height = " + tree.getHeight());
+
+        tree.balance();
+        tree.printInorder();
+        System.out.println("height = " + tree.getHeight());
+
     }
 }

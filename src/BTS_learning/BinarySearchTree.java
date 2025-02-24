@@ -20,4 +20,6 @@ public interface BinarySearchTree {
     int countNodes();
 
     int getHeight();
+
+    void balance();
 }

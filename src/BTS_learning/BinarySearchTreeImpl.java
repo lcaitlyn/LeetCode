@@ -1,5 +1,7 @@
 package BTS_learning;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class BinarySearchTreeImpl implements BinarySearchTree {
     private Node root;
@@ -92,7 +94,7 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
 
     private Node getMin(Node node) {
         if (node == null) return null;
-        
+
         while (node.left != null) {
             node = node.left;
         }
@@ -106,7 +108,7 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
         while (node.right != null) {
             node = node.right;
         }
-        
+
         return node;
     }
 
@@ -115,11 +117,11 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
 
         if (value == node.value) {
             if (isList(node)) return null;
-            
+
             if (node.left == null) return node.right;
-            
+
             if (node.right == null) return node.left;
-            
+
             Node tmp = getMin(node.right);  // ищем минимальную ноду из правого поддерева
             node.left = tmp.left;
             node.right = deleteRec(node.right, tmp.value);
@@ -165,6 +167,31 @@ public class BinarySearchTreeImpl implements BinarySearchTree {
 
     public int getHeight() {
         return getHeightRec(root);
+    }
+
+    private void fillListRec(List<Integer> list, Node node) {
+        if (node == null || list == null) return;
+
+        list.add(node.value);
+        fillListRec(list, node.left);
+        fillListRec(list, node.right);
+    }
+
+    private Node buildBalancedTree(List<Integer> list, int lo, int hi) {
+        if (lo > hi) return null;
+
+        int mid = (hi - lo) / 2 + lo;
+        Node node = new Node(list.get(mid));
+        node.left = buildBalancedTree(list, lo, mid - 1); // идем влево от середины
+        node.right = buildBalancedTree(list, mid + 1, hi); // идем вправо от середины
+
+        return node;
+    }
+
+    public void balance() {
+        List<Integer> list = new ArrayList<>();
+        fillListRec(list, root);
+        root = buildBalancedTree(list, 0, list.size() - 1);
     }
 }
 
