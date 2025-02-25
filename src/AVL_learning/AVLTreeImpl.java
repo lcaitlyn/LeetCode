@@ -32,9 +32,29 @@ public class AVLTreeImpl implements AVLTree {
     private boolean isBalanced(Node node) {
         if (node == null) return true;
 
-        if (Math.abs(height(node.left) - height(node.right)) > 1) return false;
+        if (Math.abs(balanceFactor(node)) > 1) return false;
 
         return isBalanced(node.left) && isBalanced(node.right);
+    }
+
+    private Node rightRotate(Node node) {
+        Node a = node.left;
+        Node b = a.right;
+
+        a.right = node;
+        node.left = b;
+
+        return a;
+    }
+
+    private Node leftRotate(Node node) {
+        Node a = node.right;
+        Node b = a.left;
+
+        a.left = node;
+        node.right = b;
+
+        return a;
     }
 
     private Node balance(Node node) {
@@ -42,33 +62,17 @@ public class AVLTreeImpl implements AVLTree {
 
         // Если наша Node является одним из 4ых кейсов поворота
         if (isTurnCase(node)) {
-            Node tmp = null;
             if (isLL(node)) {
-                tmp = node.left;
-                node.left.right = node;
-                node.left = null;
+                return rightRotate(node);
             } else if (isRR(node)) {
-                tmp = node.right;
-                node.right.left = node;
-                node.right = null;
+                return leftRotate(node);
             } else if (isLR(node)) {
-                tmp = node.right.left;
-                node.right.left.left = node;
-                node.right.left.right = node.right;
-                node.right.left = null;
-                node.right.right = null;
-                node.left = null;
-                node.right = null;
+                node.left = leftRotate(node.left);
+                return rightRotate(node);
             } else if (isRL(node)) {
-                tmp = node.left.right;
-                node.left.right.right = node;
-                node.left.right.left = node.left;
-                node.left.right = null;
-                node.left.left = null;
-                node.left = null;
-                node.right = null;
+                node.right = rightRotate(node.right);
+                return leftRotate(node);
             }
-            return tmp;
         }
 
         if (height(node.left) > height(node.right)) {
@@ -84,38 +88,35 @@ public class AVLTreeImpl implements AVLTree {
         return (isLL(node) || isLR(node) || isRL(node) || isRR(node));
     }
 
+    private int balanceFactor(Node node) {
+        if (node == null) return 0;
+        return (height(node.left) - height(node.right));
+    }
+
     // Левый поворот (Right-Right case, RR), когда все уходит вправо
     private boolean isRR(Node node) {
         if (node == null) return false;
-        if (node.right == null || node.left != null) return false;
-        if (node.right.right == null || node.right.left != null) return false;
-        return true;
+        return (balanceFactor(node) < -1 && balanceFactor(node.right) <= 0);
     }
 
     // Правый поворот (Left-Left case, LL), когда все уходит влево
     private boolean isLL(Node node) {
         if (node == null) return false;
-        if (node.left == null || node.right != null) return false;
-        if (node.left.left == null || node.left.right != null) return false;
-        return true;
+        return (balanceFactor(node) > 1 && balanceFactor(node.left) >= 0);
     }
 
     // Право-левый поворот (Right-Left, RL)
     // Когда новый узел добавляется в правое поддерево левого узла
     private boolean isRL(Node node) {
         if (node == null) return false;
-        if (node.left == null || node.right != null) return false;
-        if (node.left.right == null || node.left.left != null) return false;
-        return true;
+        return (balanceFactor(node) < -1 && balanceFactor(node.right) > 0);
     }
 
     // Лево-правый поворот (Left-Right, LR)
     // Когда новый узел добавляется в левое поддерево правого узла
     private boolean isLR(Node node) {
         if (node == null) return false;
-        if (node.right == null || node.left != null) return false;
-        if (node.right.left == null || node.right.right != null) return false;
-        return true;
+        return (balanceFactor(node) > 1 && balanceFactor(node.left) < 0);
     }
 
     public void insert(int value) {
