@@ -1,3 +1,5 @@
+import javax.swing.tree.TreeNode;
+
 public class BalancedBinaryTree {
     // private int height(TreeNode node) {
     //     if (node == null) return 0;
@@ -40,4 +42,28 @@ public class BalancedBinaryTree {
     // взгляну в ответы.
     // крч видимо не понять мне(
 
+    private int height(TreeNode node) {
+        if (node == null) return 0;
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    private int balanceFactor(TreeNode node) {
+        if (node == null) return 0;
+        return (height(node.left) - height(node.right));
+    }
+
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) return true;
+        
+        if (isBalanced(root.left) == false) return false;
+        if (isBalanced(root.right) == false) return false;
+        
+        int bf = balanceFactor(root);
+        if (bf > 1 || bf < -1) return false;
+        return true;
+    }
+
+        // Мда. придумал решение. мой код был вечерный, но я использова balanceFactor два раза 
+    // в конце когда проверял
+    // добавил переменную, и все. time complexity 100%
 }

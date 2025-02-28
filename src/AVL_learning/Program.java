@@ -11,9 +11,9 @@ public class Program {
 
     public static void main(String[] args) {
         AVLTree tree = null;
-        tree = createTree(new int[] {1, 2, 3}); // LL case
-        tree = createTree(new int[] {3, 2, 1}); // RR case
-        tree = createTree(new int[] {1, 3, 2}); // LR case
-        tree = createTree(new int[] {3, 1, 2}); // RL case
+
+        tree = createTree(new int[] {30, 20, 40, 10, 25, 35, 50});
+        tree.delete(10);
+        System.out.println(tree.search(10));
     }
 }

@@ -92,6 +92,21 @@ public class MiddleOfTheLinkedList {
     // развил её.
 
 
+    public ListNode middleNode(ListNode head) {
+        ListNode tmp = head;
+        ListNode res = tmp;
+
+        while (tmp != null && tmp.next != null) {
+            tmp = tmp.next.next;
+            res = res.next;
+        }
+
+        return res;
+    }
+
+    // Результат: runtime 100%, memory 72.77%
+    // Сделал использовав два указателя (slow and fast)
+
     public static void main(String[] args) {
         ListNode head = createList(new int[] {1, 2, 3, 4});
         printList(head);

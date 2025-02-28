@@ -89,4 +89,51 @@ public class AVLTreeImpl implements AVLTree {
     public void insert(int value) {
         root = insertRec(root, value);
     }
+
+    private Node getMin(Node node) {
+        if (node == null) return null;
+
+        while (node.left != null) {
+            node = node.left;
+        }
+
+        return node;
+    }
+
+    private Node deleteRec(Node node, int value) {
+        if (node == null) return null;
+
+        if (node.value == value) {
+            if (node.left == null && node.right == null) return null;
+
+            if (node.left == null) return balance(node.right);
+            if (node.right == null) return balance(node.left);
+
+            Node tmp = getMin(node.right);  // ищем минимальную ноду из правого поддерева
+            tmp.left = node.left;
+            tmp.right = deleteRec(node.right, tmp.value);
+            return balance(tmp);
+        } else if (node.value > value) {
+            node.left = deleteRec(node.left, value);
+        } else if (node.value < value) {
+            node.right = deleteRec(node.right, value);
+        }
+        
+        return balance(node);
+    }
+
+    public void delete(int value) {
+        root = deleteRec(root, value);
+    }
+
+    private boolean searchRec(Node node, int value) {
+        if (node == null) return false;
+        if (value < node.value) return searchRec(node.left, value);
+        if (value > node.value) return searchRec(node.right, value);
+        return true;
+    }
+
+    public boolean search(int value) {
+        return searchRec(root, value);
+    }
 }
