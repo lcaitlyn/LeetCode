@@ -13,7 +13,13 @@ public class Program {
         AVLTree tree = null;
 
         tree = createTree(new int[] {30, 20, 40, 10, 25, 35, 50});
+        tree.printTreeWithBFS();
         tree.delete(10);
+        tree.printTreeWithBFS();
         System.out.println(tree.search(10));
+        System.out.println(tree.getByLevelOrder());
+
+        tree = createTree(new int []{1});
+        System.out.println(tree.getByLevelOrder());
     }
 }

@@ -1,5 +1,10 @@
 package AVL_learning;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class AVLTreeImpl implements AVLTree {
     private Node root;
 
@@ -135,5 +140,51 @@ public class AVLTreeImpl implements AVLTree {
 
     public boolean search(int value) {
         return searchRec(root, value);
+    }
+
+    public void printTreeWithBFS() {
+        Queue<Node> q = new LinkedList<>();
+        
+        q.add(root);
+        while (!q.isEmpty()) {
+            Node node = q.poll();
+            
+            if (node != null) {
+                System.out.print(node.value + " ");
+                q.add(node.left);
+                q.add(node.right);
+            }
+        }
+        System.out.println();
+    }
+
+    private List<List<Integer>> levelOrder(Node root) {
+        if (root == null) return null;
+
+        Queue<Node> q = new LinkedList<>();
+
+        List<List<Integer>> arr = new ArrayList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                Node node = q.poll();
+
+                if (node != null) {
+                    list.add(node.value);
+                    q.add(node.left);
+                    q.add(node.right);
+                }
+            }
+            if (!list.isEmpty()) {
+                arr.add(list);
+            }
+        }
+        return arr;
+    }
+
+    public List<List<Integer>> getByLevelOrder() {
+        return levelOrder(root);
     }
 }
