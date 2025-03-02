@@ -1,4 +1,4 @@
-package AVL_learning;
+package AVLTree;
 
 public class Program {
     private static AVLTree createTree(int [] arr) {

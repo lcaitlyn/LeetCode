@@ -1,4 +1,4 @@
-package AVL_learning;
+package AVLTree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

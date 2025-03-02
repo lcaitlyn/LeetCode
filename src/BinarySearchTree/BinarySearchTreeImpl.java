@@ -1,4 +1,4 @@
-package BST_learning;
+package BinarySearchTree;
 
 import java.util.ArrayList;
 import java.util.List;
