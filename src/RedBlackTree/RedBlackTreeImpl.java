@@ -1,5 +1,6 @@
 package RedBlackTree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,10 +10,10 @@ public class RedBlackTreeImpl implements RedBlackTree {
     }
 
     private TreeNode root;
-    private TreeNode nil = new TreeNode(0, Color.BLACK);
+    private final TreeNode nil = new TreeNode(0, Color.BLACK);
 
     private class TreeNode {
-        private final int value;
+        private int value;
 
         private TreeNode left, right, parent;
 
@@ -87,6 +88,13 @@ public class RedBlackTreeImpl implements RedBlackTree {
         if (node == nil || node.parent == nil) return null;
         TreeNode grandParent = getGrandParent(node);
         return (grandParent.left == node.parent) ? grandParent.right : grandParent.left;
+    }
+
+    // возвращает единственного ребенка.  ребенка нет или их 2, возвращает nil
+    private TreeNode getChild(TreeNode node) {
+        if (getCountOfChild(node) != 1) return nil;
+
+        return (node.left == nil) ? node.right : node.left;
     }
 
     // Делаю по этому гайду https://www.youtube.com/watch?v=0BUX_PotA4c&t=198s
@@ -165,13 +173,128 @@ public class RedBlackTreeImpl implements RedBlackTree {
         Queue<TreeNode> q = new LinkedList<>();
 
         q.add(root);
-        while (!q.isEmpty()) {
+        while (!q.isEmpty() && root != null) {
             TreeNode node = q.poll();
             if (node != nil) {
                 System.out.print(node.color.toString() + node.value + " ");
                 q.add(node.left);
                 q.add(node.right);
             }
+        }
+        System.out.println();
+    }
+
+    private TreeNode findTreeNode(TreeNode root, int value) {
+        if (root == nil) return nil;
+        if (value == root.value) return root;
+        return (value < root.value) ? findTreeNode(root.left, value) : findTreeNode(root.right, value);
+    }
+
+    public boolean search(int value) {
+        if (root == null) return false;
+        return (findTreeNode(root, value) != nil);
+    }
+
+    private int getCountOfChild(TreeNode node) {
+        int i = 0;
+        if (node.left != nil)
+            i++;
+        if (node.right != nil)
+            i++;
+        return i;
+    }
+
+    private TreeNode getMinTreeNode(TreeNode node) {
+        if (node == nil) return nil;
+        while (node.left != nil) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    private void balanceAfterRemoval(TreeNode node) {
+        if (node == nil) return;
+
+        TreeNode brother;
+        while (node != root && node.color == Color.BLACK) {
+            if (node == node.parent.left) {
+                brother = node.parent.right;
+                if (isRed(brother)) {
+                    brother.color = Color.BLACK;
+                    node.parent.color = Color.RED;
+                    leftRotate(node.parent);
+                    brother = node.parent.right;
+                }
+                if (!isRed(brother.left) && !isRed(brother.right)) {
+                    brother.color = Color.RED;
+                    node = node.parent;
+                } else {
+                    if (isRed(brother.right)) {
+                        brother.color = node.parent.color;
+                        node.parent.color = Color.BLACK;
+                        brother.right.color = Color.BLACK;
+                        leftRotate(node.parent);
+                        node = root;
+                    } else if (isRed(brother.left)) {
+                        brother.color = Color.RED;
+                        brother.left.color = Color.BLACK;
+                        rightRotate(brother);
+                        brother = node.parent.right;
+                    }
+                }
+            } else {
+                brother = node.parent.left;
+                if (isRed(brother)) {
+                    brother.color = Color.BLACK;
+                    node.parent.color = Color.RED;
+                    rightRotate(node.parent);
+                    brother = node.parent.left;
+                }
+                if (!isRed(brother.left) && !isRed(brother.right)) {
+                    brother.color = Color.RED;
+                    node = node.parent;
+                } else {
+                    if (isRed(brother.left)) {
+                        brother.color = node.parent.color;
+                        node.parent.color = Color.BLACK;
+                        brother.left.color = Color.BLACK;
+                        rightRotate(node.parent);
+                        node = root;
+                    } else if (isRed(brother.right)) {
+                        brother.color = Color.RED;
+                        brother.right.color = Color.BLACK;
+                        leftRotate(brother);
+                        brother = node.parent.left;
+                    }
+                }
+            }
+        }
+        node.color = Color.BLACK;
+    }
+
+    public void remove(int value) {
+        if (root == null) return;
+
+        TreeNode node = findTreeNode(root, value);
+
+        if (node == nil) return; // если не нашли, выходим
+
+        if (node == root && getCountOfChild(node) == 0) { // если удаляемый root и у него нет детей
+            root = null;
+            return;
+        }
+
+        TreeNode child = (getCountOfChild(node) < 2) ? getChild(node) : getMinTreeNode(node.right);
+        if (node.parent == nil) { // если удаляемый root с детьми
+            root = child;
+        } else if (node.parent.left == node) { // если у удаляемого есть ребенок, отдаем его родителю, иначе туда идет nil
+            node.parent.left = child;
+        } else {
+            node.parent.right = child;
+        }
+
+        if (node.color == Color.BLACK) {    // балансировка
+            balanceAfterRemoval(child);
         }
     }
 }
