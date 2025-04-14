@@ -13,10 +13,7 @@ public class _3Sum {
             while (l < r) {
                 int target = 0 - nums[l] - nums[r];
                 if (target == nums[i]) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(nums[i]);
-                    list.add(nums[l]);
-                    list.add(nums[r]);
+                    List<Integer> list = Arrays.asList(nums[i], nums[l], nums[r]);
                     res.add(list);
                     l++;
                     while (l < r && nums[l] == nums[l - 1]) {

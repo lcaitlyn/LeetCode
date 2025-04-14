@@ -49,8 +49,38 @@ public class TopKFrequentElements {
 
 
     public static int[] topKFrequent(int[] nums, int k) {
-        
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        }
+
+        List<Integer>[] list = new ArrayList[nums.length + 1];
+        for (Integer i : map.keySet()) {
+            int val = map.get(i);
+            if (list[val] == null) {
+                list[val] = new ArrayList<>();
+            }
+            list[val].add(i);
+        }
+
+        int[] res = new int[k];
+        int i = list.length - 1;
+        int j = 0;
+        while (j < k) {
+            if (list[i] != null) {
+                for (Integer v : list[i]) {
+                    res[j] = v;
+                    j++;
+                }
+            }
+            i--;
+        }
+
+        return res;
     }
+
+    // runtime 11ms beats 92%. решение посмотрел в инете, и реализовал свой
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(topKFrequent(new int[]{1, 1, 1, 2, 2, 3}, 2)));
