@@ -11,7 +11,7 @@ public class ReverseLinkedList {
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
-    private static ListNode createList(int [] values) {
+    public static ListNode createList(int [] values) {
         if (values.length == 0) return null;
 
         ListNode head = new ListNode();
@@ -23,7 +23,7 @@ public class ReverseLinkedList {
         return head.next;
     }
 
-    private static void printList(ListNode list) {
+    public static void printList(ListNode list) {
         ListNode tail = list;
 
         while (tail != null) {
@@ -95,12 +95,10 @@ public class ReverseLinkedList {
             return head;
         }
 
-        ListNode tmp = tail;
-        tail = head;
-        head = head.next;
-        tail.next = tmp;
-    
-        return (getTail(head, tail));
+        ListNode tmp = head.next;
+        head.next = tail;
+        
+        return getTail(tmp, head);
     }
 
     public static ListNode reverseList(ListNode head) {

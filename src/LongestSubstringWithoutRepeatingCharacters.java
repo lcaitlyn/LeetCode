@@ -74,26 +74,61 @@ public class LongestSubstringWithoutRepeatingCharacters {
     // теперь у меня скачет, а все равно медленно.
     // Результат runtime 10% 79ms 
 
-    private static int lengthOfLongestSubstring(String s) {
+    // private static int lengthOfLongestSubstring(String s) {
+    //     Set<Character> set = new HashSet<>();
+
+    //     int i = 0;
+    //     int max = 0;
+    //     while (i < s.length()) {
+    //         if (set.contains(s.charAt(i))) {
+    //             max = Math.max(max, set.size());
+    //             set.clear();
+    //             set.add(s.charAt(i));
+    //         } else {
+    //             set.add(s.charAt(i));
+    //         }
+    //         i++;
+    //     }
+    //     set.clear();
+    //     while (i-- > 0) {
+    //         if (set.contains(s.charAt(i))) {
+    //             max = Math.max(max, set.size());
+    //             set.clear();
+    //             set.add(s.charAt(i));
+    //         } else {
+    //             set.add(s.charAt(i));
+    //         }
+    //     }
+
+    //     return Math.max(max, set.size());
+    // }
+
+    // ок блять это решение не работает даже если крутануть в обратку
+
+    public static int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
 
-        int i = 0;
-        int max = 0;
-        while (i < s.length()) {
-            if (set.contains(s.charAt(i))) {
-                max = Math.max(max, set.size());
-                set.clear();
-                set.add(s.charAt(i));
+        int l = 0, r = 0;
+        int res = 0;
+        while (r < s.length()) {
+            if (!set.contains(s.charAt(r))) {
+                set.add(s.charAt(r));
+                res = Math.max(res, set.size());
             } else {
-                set.add(s.charAt(i));
+                while (s.charAt(l) != s.charAt(r)) {
+                    set.remove(s.charAt(l));
+                    l++;
+                }
+                l++;
             }
-            i++;
+            r++;
         }
-        return Math.max(max, set.size());
+        return res;
     }
 
+    // result 5 ms beats 87.6%. Ура блять. Еле еле догадался. Хотя решение мега изи блять
         
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("bbbbb"));
+        System.out.println(lengthOfLongestSubstring("asjrgapa"));
     }
 }
