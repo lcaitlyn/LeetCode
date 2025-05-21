@@ -12,6 +12,10 @@
       <file url="file://$PROJECT_DIR$/src/SubtreeOfAnotherTree.java" />
       <file url="file://$PROJECT_DIR$/src/TopKFrequentElements.java" />
       <file url="file://$PROJECT_DIR$/src/LongestConsecutiveSequence.java" />
+      <file url="file://$PROJECT_DIR$/src/ValidSudoku.java" />
+      <file url="file://$PROJECT_DIR$/src/ProductOfArrayExceptSelf.java" />
+      <file url="file://$PROJECT_DIR$/src/BinarySearch.java" />
+      <file url="file://$PROJECT_DIR$/src/AddTwoNumbers.java" />
     </excludeFromCompile>
   </component>
 </project>
