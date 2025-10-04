@@ -1,5 +1,7 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class ContinuousSubarraySum {
     // public boolean checkSubarraySum(int[] nums, int k) {
@@ -55,6 +57,18 @@ public class ContinuousSubarraySum {
             } else {
                 map.put(sum % k, i);
             }
+        }
+        return false;
+    }
+
+    public boolean solution(int [] nums, int target) {
+        int sum = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (map.containsKey(sum - target)) return true;
+            map.put(sum - target, i);
         }
         return false;
     }

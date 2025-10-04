@@ -1,6 +1,8 @@
 # LeetCode
 Решения по задачам LeetCode, а также NeetCode
 
+Вот мой профиль на лит коде 🤪 https://leetcode.com/u/lcaitlyn/
+
 https://www.techinterviewhandbook.org/grind75
 
 https://neetcode.io/roadmap
