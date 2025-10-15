@@ -20,6 +20,9 @@
       <file url="file://$PROJECT_DIR$/src/BinaryTreeZigzagLevelOrderTraversal.java" />
       <file url="file://$PROJECT_DIR$/src/KthLargestElementInAStream.java" />
       <file url="file://$PROJECT_DIR$/src/LastStoneWeight.java" />
+      <file url="file://$PROJECT_DIR$/src/KthLargestElementInAnArray.java" />
+      <file url="file://$PROJECT_DIR$/src/KClosestPointsToOrigin.java" />
+      <file url="file://$PROJECT_DIR$/src/PalindromeLinkedList.java" />
     </excludeFromCompile>
   </component>
 </project>
