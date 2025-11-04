@@ -1,5 +1,5 @@
 # LeetCode
-Решения по задачам LeetCode, а также NeetCode
+Решения по задачам LeetCode
 
 Вот мой профиль на лит коде 🤪 
 https://leetcode.com/u/lcaitlyn/
@@ -7,6 +7,7 @@ https://leetcode.com/u/lcaitlyn/
 ![LeetCode](https://leetcode-badge-sage.vercel.app/badge/lcaitlyn?bgColor=fff)
 
 https://www.techinterviewhandbook.org/grind75
+
 https://neetcode.io/roadmap
 
 upd. 12.07.2025. Вот еще эти решаю (Yandex 100 задач):
