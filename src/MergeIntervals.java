@@ -87,14 +87,15 @@ public class MergeIntervals {
         int l = 0, r = 0;
 
         while (l < intervals.length) {
-            while (r < intervals.length - 1 && (intervals[r + 1][0] <= intervals[l][1]
+            while (r < intervals.length - 1
+                    && (intervals[r + 1][0] <= intervals[l][1]
                     || (intervals[r][1] >= intervals[r + 1][0] && intervals[r][1] <= intervals[r + 1][1]))) {
                 r++;
             }
 
             if (r == intervals.length) r--;
 
-            list.add(new int[]{intervals[l][0], intervals[r][1]});
+            list.add(new int[]{intervals[l][0], Math.max(intervals[l][1], intervals[r][1])});
 
             r++;
             l = (l == r) ? l + 1 : r;
@@ -104,6 +105,7 @@ public class MergeIntervals {
     }
 
     // вот мой чистый варик
+//    upd 17.11 оказывается тут был WA [[1,4],[2,3]] на таком кейсе
 
 //    List<int[]> merged = new ArrayList<>();
 //    int[] prev = intervals[0];

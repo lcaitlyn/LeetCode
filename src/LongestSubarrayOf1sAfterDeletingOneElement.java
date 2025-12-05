@@ -48,26 +48,52 @@ public class LongestSubarrayOf1sAfterDeletingOneElement {
     // посмотрел ответы как всегда у меня замудренное решение сука. ведь я знал что оно должно быть проще
     // тем более я недавно решал ебаный Max Consecutive Ones III который очень похож
 
+//    public static int longestSubarray(int[] nums) {
+//        int zero = 0, max = 0;
+//        int l = 0, r = 0;
+//
+//        while (r < nums.length) {
+//            if (nums[r] == 0) {
+//                zero++;
+//                while (zero > 1) {
+//                    if (nums[l] == 0) {
+//                        zero--;
+//                    }
+//                    l++;
+//                }
+//            }
+//            r++;
+//            max = Math.max(max, r - l - 1);
+//        }
+//
+//        return Math.max(max, r - l - 1);
+//    }
+
+//    upd. 19.11.25
+//    res: 22.09.25
+//    beats 82.11% memory 92.48% runtime 3ms
+
     public static int longestSubarray(int[] nums) {
-        int zero = 0, max = 0;
+        int zeros = 0, max = 0;
         int l = 0, r = 0;
 
         while (r < nums.length) {
-            if (nums[r] == 0) {
-                zero++;
-                while (zero > 1) {
-                    if (nums[l] == 0) {
-                        zero--;
-                    }
-                    l++;
-                }
+            if (nums[r] == 0) zeros++;
+
+            while (zeros > 1) {
+                if (nums[l] == 0) zeros--;
+                l++;
             }
+
+            max = Math.max(max, r - l);
             r++;
-            max = Math.max(max, r - l - 1);
         }
 
-        return Math.max(max, r - l - 1);
+        return max;
     }
+
+//    upd 18.11.2025
+//    Дали эту задачу на Алгособесе в Яндекс
 
     public static void main(String[] args) {
         System.out.println(longestSubarray(new int[]{1,1,0,1}));
