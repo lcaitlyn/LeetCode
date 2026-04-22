@@ -1,4 +1,4 @@
-package TinkoffContest;
+package TBankContest2025Fall;
 
 import java.util.HashSet;
 import java.util.Scanner;

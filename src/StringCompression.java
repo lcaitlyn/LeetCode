@@ -31,36 +31,59 @@ public class StringCompression {
 //    хах. а я думал по проще все
 //    ладно еще подумаем немного
 
-    public static int compress(char[] chars) {
-        int count = 0;
-        char cur = chars[0];
-
-        StringBuilder sb = new StringBuilder();
-        for (char c : chars) {
-            if (c == cur) {
-                count++;
-            } else {
-                sb.append(cur);
-                if (count > 1)
-                    sb.append(count);
-                count = 1;
-                cur = c;
-            }
-        }
-        sb.append(cur);
-        if (count > 1)
-            sb.append(count);
-
-        for (int i = 0; i < sb.length(); i++) {
-            chars[i] = sb.charAt(i);
-        }
-
-        return sb.length();
-    }
+//    public static int compress(char[] chars) {
+//        int count = 0;
+//        char cur = chars[0];
+//
+//        StringBuilder sb = new StringBuilder();
+//        for (char c : chars) {
+//            if (c == cur) {
+//                count++;
+//            } else {
+//                sb.append(cur);
+//                if (count > 1)
+//                    sb.append(count);
+//                count = 1;
+//                cur = c;
+//            }
+//        }
+//        sb.append(cur);
+//        if (count > 1)
+//            sb.append(count);
+//
+//        for (int i = 0; i < sb.length(); i++) {
+//            chars[i] = sb.charAt(i);
+//        }
+//
+//        return sb.length();
+//    }
 
 //    beats 99.64% memory 48% runtime 1ms
 
+
+    public static int compress(char[] chars) {
+        int res = 0;
+        int l = 0, r = 0;
+
+        while (r < chars.length) {
+            while (r < chars.length && chars[r] == chars[l]) r++;
+
+            res++;
+            if (r - l > 1) {
+                if (r - l < 10) res+=1;
+                else if (r - l < 100) res+=2;
+                else if (r - l < 1000) res+=3;
+                else if (r - l < 10000) res+=4;
+            }
+
+            l = r;
+            r++;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
+        System.out.println(154 / 1000);
         char[] chars = new char[]{'a', 'a', 'b', 'b', 'c', 'c', 'c'};
         System.out.println(chars);
         System.out.println(compress(chars));

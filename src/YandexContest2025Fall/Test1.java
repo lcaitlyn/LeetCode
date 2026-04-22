@@ -1,4 +1,4 @@
-package YandexContest;
+package YandexContest2025Fall;
 
 import java.io.*;
 import java.util.*;

@@ -88,22 +88,64 @@ public class FindKClosestElements {
     // я ошибся на самом деле в моём решение сложность O(logN + k), где нам нужно пройти еще K, чтобы найти соседние числа
     // т.е если  K == N, то это тоже самое получится что O(N + logN)
 
-    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
-        int l = 0, r = arr.length - k;
+//    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+//        int l = 0, r = arr.length - k;
+//
+//        while (l <= r) {
+//            int med = (r - l) / 2 + l;
+//            if (x - arr[med] > arr[med + k] - x) {
+//                l = med + 1;
+//            } else {
+//                r = med;
+//            }
+//        }
+//
+//        return makeListOfRange(arr, l, r);
+//    }
 
+//    upd. 05.04.2026 всё что ниже сегодня сделал в качестве подготовки (перерешываю задачи)
+
+    private static int binarySearch(int[] arr, int x) {
+        int l = 0, r = arr.length - 1;
         while (l <= r) {
             int med = (r - l) / 2 + l;
-            if (x - arr[med] > arr[med + k] - x) {
+            if (arr[med] == x) return med;
+            if (arr[med] < x){
                 l = med + 1;
             } else {
-                r = med;
+                r = med - 1;
             }
         }
 
-        return makeListOfRange(arr, l, r);
+        if (l == 0) return l;
+        if (r == arr.length - 1) return r;
+        if (Math.abs(arr[l] - x) < Math.abs(arr[r] - x)) return l;
+        return r;
+    }
+
+    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> list = new ArrayList<>();
+
+        int med = binarySearch(arr, x);
+        int l = med, r = med;
+        for (int i = 0; i < k - 1; i++) {
+            if (l == 0) r++;
+            else if (r == arr.length - 1) l--;
+            else if (Math.abs(arr[l - 1] - x) < Math.abs(arr[r + 1] - x)) l--;
+            else if (Math.abs(arr[l - 1] - x) > Math.abs(arr[r + 1] - x)) r++;
+            else l--;
+        }
+
+        while (l <= r) {
+            list.add(arr[l]);
+            l++;
+        }
+
+        return list;
     }
 
     public static void main(String[] args) {
-        System.out.println(findClosestElements(new int[]{1, 2, 3, 5, 6}, 3, 3));
+//        System.out.println(findClosestElements(new int[]{1, 2, 3, 5, 6}, 3, 3));
+        System.out.println("[1,3] -> " + findClosestElements(new int[]{0,0,0,1,3,5,6,7,8,8}, 2, 2));
     }
 }

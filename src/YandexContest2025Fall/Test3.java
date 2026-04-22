@@ -1,4 +1,4 @@
-package YandexContest;
+package YandexContest2025Fall;
 
 import java.util.Scanner;
 
