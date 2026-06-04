@@ -77,42 +77,76 @@ public class SubarraysWithKDifferentIntegers {
 //    runtime 39ms, beats 88.12%, memory 66.8%
 //    бля мб можно через int[] сделать
 
-    public static int subarraysWithKDistinct(int[] nums, int k) {
-        int[] map = new int[20001];
-        int res = 0;
+//    public static int subarraysWithKDistinct(int[] nums, int k) {
+//        int[] map = new int[20001];
+//        int res = 0;
+//
+//        int ln = 0, lf = 0, r = 0; // ln = leftNear pointer, lf = leftFar pointer
+//        int size = 0;
+//        while (r < nums.length) {
+//            map[nums[r]]++;
+//
+//            if (map[nums[r]] == 1) size++;
+//
+//            if (size > k) {
+//                while (size > k) {
+//                    map[nums[ln]]--;
+//                    if (map[nums[ln]] == 0) size--;
+//                    ln++;
+//                }
+//                lf = ln;
+//            }
+//
+//            if (size == k) {
+//                while (map[nums[ln]] > 1) {
+//                    map[nums[ln]]--;
+//                    ln++;
+//                }
+//                res += ln - lf + 1;
+//            }
+//
+//            r++;
+//        }
+//
+//        return res;
+//    }
 
-        int ln = 0, lf = 0, r = 0; // ln = leftNear pointer, lf = leftFar pointer
+//    runtime 5ms, beats 98.99%, memory 87.88%
+//    ну да мапа зарешала
+
+    public static int subarraysWithKDistinct(int[] nums, int k) {
+        int res = 0;
         int size = 0;
+        int[] map = new int[nums.length + 1];
+
+        int leftNear = 0, leftFar = 0, r = 0;
         while (r < nums.length) {
             map[nums[r]]++;
-
             if (map[nums[r]] == 1) size++;
 
             if (size > k) {
                 while (size > k) {
-                    map[nums[ln]]--;
-                    if (map[nums[ln]] == 0) size--;
-                    ln++;
+                    map[nums[leftNear]]--;
+                    if (map[nums[leftNear]] == 0) size--;
+                    leftNear++;
                 }
-                lf = ln;
+                leftFar = leftNear;
             }
 
-            if (size == k) {
-                while (map[nums[ln]] > 1) {
-                    map[nums[ln]]--;
-                    ln++;
-                }
-                res += ln - lf + 1;
+            while (size == k && map[nums[leftNear]] > 1) {
+                map[nums[leftNear]]--;
+                leftNear++;
             }
 
+            if (size == k) res += leftNear - leftFar + 1;
             r++;
         }
-
         return res;
     }
 
-//    runtime 5ms, beats 98.99%, memory 87.88%
-//    ну да мапа зарешала
+//    upd 3.06.2026
+//    сука на те же грабли наступил
+//    пришлось заново открывать видео разбор и смотреть как решать
 
     public static void main(String[] args) {
         System.out.println("7 -> " + subarraysWithKDistinct(new int[]{1, 2, 1, 2, 3}, 2));

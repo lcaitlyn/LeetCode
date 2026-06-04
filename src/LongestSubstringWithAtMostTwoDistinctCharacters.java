@@ -1,17 +1,17 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class LongestSubstringWithAtMostKDistinctCharacters {
+public class LongestSubstringWithAtMostTwoDistinctCharacters {
 
-    public static int lengthOfLongestSubstringKDistinct(String s, int k) {
+    public static int lengthOfLongestSubstringTwoDistinct(String s) {
         Map<Character, Integer> map = new HashMap<>();
-
         int res = 0;
         int l = 0, r = 0;
+
         while (r < s.length()) {
             map.put(s.charAt(r), map.getOrDefault(s.charAt(r), 0) + 1);
 
-            while (map.size() > k) {
+            while (map.size() > 2) {
                 map.put(s.charAt(l), map.get(s.charAt(l)) - 1);
                 if (map.get(s.charAt(l)) == 0) map.remove(s.charAt(l));
                 l++;
@@ -25,6 +25,7 @@ public class LongestSubstringWithAtMostKDistinctCharacters {
     }
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstringKDistinct("qwqqqqqa", 2));
+        System.out.println("3 -> " + lengthOfLongestSubstringTwoDistinct("eceba"));
+        System.out.println("5 -> " + lengthOfLongestSubstringTwoDistinct("ccaabbb"));
     }
 }

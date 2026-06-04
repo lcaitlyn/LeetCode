@@ -57,41 +57,70 @@ public class FruitIntoBaskets {
 //    ахуеть мапа медленная
 //    по памяти проседаем, хочу поменять мапу на int[2]
 
-    public static int totalFruit(int[] fruits) {
-        int res = 0, total = 0;
-        int r = 0;
-        int[] map = new int[2];
-        map[0] = -1;
-        map[1] = -1;
-
-        while (r < fruits.length) {
-            if (map[0] == -1) {
-                map[0] = fruits[r];
-            } else if (map[1] == -1 && map[0] != fruits[r]) {
-                map[1] = fruits[r];
-            }
-            if (map[0] != fruits[r] && map[1] != fruits[r]) {
-                total = 0;
-                int l = r - 1;
-                while (fruits[l] == fruits[r - 1]) {
-                    total++;
-                    l--;
-                }
-                map[0] = fruits[r - 1];
-                map[1] = fruits[r];
-            }
-            total++;
-            res = Math.max(res, total);
-            r++;
-        }
-        return res;
-    }
+//    public static int totalFruit(int[] fruits) {
+//        int res = 0, total = 0;
+//        int r = 0;
+//        int[] map = new int[2];
+//        map[0] = -1;
+//        map[1] = -1;
+//
+//        while (r < fruits.length) {
+//            if (map[0] == -1) {
+//                map[0] = fruits[r];
+//            } else if (map[1] == -1 && map[0] != fruits[r]) {
+//                map[1] = fruits[r];
+//            }
+//            if (map[0] != fruits[r] && map[1] != fruits[r]) {
+//                total = 0;
+//                int l = r - 1;
+//                while (fruits[l] == fruits[r - 1]) {
+//                    total++;
+//                    l--;
+//                }
+//                map[0] = fruits[r - 1];
+//                map[1] = fruits[r];
+//            }
+//            total++;
+//            res = Math.max(res, total);
+//            r++;
+//        }
+//        return res;
+//    }
 
 //    beats 93.9% memory 5.01% runtime 7ms
 //    пиздец память вообще не изменилась лол
 
+
+    public static int totalFruit(int[] fruits) {
+        int[] map = new int[fruits.length + 1];
+        int res = 0;
+        int size = 0;
+        int l = 0, r = 0;
+
+        while (r < fruits.length) {
+            map[fruits[r]]++;
+            if (map[fruits[r]] == 1) size++;
+
+            while (size > 2) {
+                map[fruits[l]]--;
+                if (map[fruits[l]] == 0) size--;
+                l++;
+            }
+
+            res = Math.max(res, r - l + 1);
+            r++;
+        }
+
+        return res;
+    }
+
+//    upd 4.06.2026
+//    решил снова в качестве подготовки к собесу
+//    beats 96% runtime 7ms memory 98%
+//    написал код за минуту (по памяти уже)
+
     public static void main(String[] args) {
 //        System.out.println("4 -> " + totalFruit(new int[]{1, 2, 3, 2, 2}));
-        System.out.println("4 -> " + totalFruit(new int[]{3,3,3,1,2,1,1,2,3,3,4}));
+        System.out.println("4 -> " + totalFruit(new int[]{3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4}));
     }
 }
