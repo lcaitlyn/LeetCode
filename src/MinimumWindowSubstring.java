@@ -50,42 +50,85 @@ public class MinimumWindowSubstring {
 
 
 
+//    private static int getIndex(char c) {
+//        if (c >= 'A' && c <= 'Z') return c - 'A' + 26;
+//        return c - 'a';
+//    }
+//
+//    public static String minWindow(String s, String t) {
+//        int[] set = new int[52];
+//        int[] map = new int[52];
+//        int size = 0;
+//        String res = "";
+//
+//        for (int i = 0; i < t.length(); i++) {
+//            if (set[getIndex(t.charAt(i))] == 0) size++;
+//
+//            set[getIndex(t.charAt(i))]++;
+//        }
+//
+//        int l = 0, r = 0;
+//        while (r < s.length()) {
+//            map[getIndex(s.charAt(r))]++;
+//
+//            if (map[getIndex(s.charAt(r))] == set[getIndex(s.charAt(r))]) {
+//                size--;
+//            }
+//
+//            while (set[getIndex(s.charAt(r))] > 0 && map[getIndex(s.charAt(l))] > set[getIndex(s.charAt(l))]) {
+//                map[getIndex(s.charAt(l))]--;
+//                l++;
+//            }
+//
+//            while (l < r && set[getIndex(s.charAt(l))] == 0) {
+//                l++;
+//            }
+//
+//            if (size == 0 && (res.isEmpty() || res.length() > r - l)) {
+//                res = s.substring(l, r + 1);
+//            }
+//
+//            r++;
+//        }
+//
+//        return res;
+//    }
+
+//    runtime 6ms beats 64.33% memory 50.25%
+//    сделал еще раз в качестве тренировки
+
     private static int getIndex(char c) {
-        if (c >= 'A' && c <= 'Z') return c - 'A' + 26;
-        return c - 'a';
+        return Character.isUpperCase(c) ? c - 'A' : c - 'a' + 26;
     }
 
     public static String minWindow(String s, String t) {
         int[] set = new int[52];
-        int[] map = new int[52];
         int size = 0;
-        String res = "";
-
-        for (int i = 0; i < t.length(); i++) {
-            if (set[getIndex(t.charAt(i))] == 0) size++;
-
-            set[getIndex(t.charAt(i))]++;
+        for (char c : t.toCharArray()) {
+            set[getIndex(c)]++;
+            if (set[getIndex(c)] == 1) size++;
         }
 
+        String res = "";
+        int[] map = new int[52];
         int l = 0, r = 0;
         while (r < s.length()) {
-            map[getIndex(s.charAt(r))]++;
+            int i = getIndex(s.charAt(r));
+            map[i]++;
+            if (set[i] > 0 && map[i] == set[i]) size--;
 
-            if (map[getIndex(s.charAt(r))] == set[getIndex(s.charAt(r))]) {
-                size--;
-            }
 
-            while (set[getIndex(s.charAt(r))] > 0 && map[getIndex(s.charAt(l))] > set[getIndex(s.charAt(l))]) {
-                map[getIndex(s.charAt(l))]--;
+            int j = getIndex(s.charAt(l));
+            while (l < r && ((set[j] == 0) || (size == 0 && set[j] > 0 && map[j] > set[j]))) {
+                if (set[j] > 0 && map[j] == set[j]) size++;
+                map[j]--;
                 l++;
+                j = getIndex(s.charAt(l));
             }
 
-            while (l < r && set[getIndex(s.charAt(l))] == 0) {
-                l++;
-            }
-
-            if (size == 0 && (res.isEmpty() || res.length() > r - l)) {
-                res = s.substring(l, r + 1);
+            if (size == 0) {
+                if (res.isEmpty() || r - l + 1 < res.length())
+                    res = s.substring(l, r + 1);
             }
 
             r++;
@@ -94,14 +137,14 @@ public class MinimumWindowSubstring {
         return res;
     }
 
-//    runtime 6ms beats 64.33% memory 50.25%
-//    сделал еще раз в качестве тренировки
+//    runtime 7ms
 
     public static void main(String[] args) {
-//        System.out.println(minWindow("ADOBECODEBANC", "ABC"));
+//        System.out.println("BANC -> " + minWindow("ADOBECODEBANC", "ABC"));
+        System.out.println("abbbbbcdd -> " + minWindow("aaaaaaaaaaaabbbbbcdd", "abcdd"));
 //        System.out.println(minWindow("a", "a"));
 //        System.out.println(minWindow("a", "aa"));
 //        System.out.println(minWindow("ab", "b"));
-        System.out.println(minWindow("aab", "aab"));
+//        System.out.println(minWindow("aab", "aab"));
     }
 }

@@ -47,6 +47,11 @@ public class SubarrayProductLessThanK {
 //    крч идет оно нахуй просто
 //    одна из худший задач
 
+//    upd. 4.06.2026
+//    ебать, щас открыл эту задачу и решил ее минуты за 2 (ну до этого решил 992, 1248, 1358, 930)
+//    причем такой же код написал решение (не смотрят на код выше), только вместо product написал p
+//    (хотя сперва написал product, но решил заменить на p). Немного протупил с типо у product (хотел double или float)
+
     public static void main(String[] args) {
         System.out.println(numSubarrayProductLessThanK(new int[]{10, 5, 2, 6}, 100));
     }

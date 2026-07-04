@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class IsomorphicStrings {
 
@@ -28,7 +25,22 @@ public class IsomorphicStrings {
 //    думаю нет
 //    нам нужно найти к-во уникальных букв в первом и во втором
 
+//    upd 12.06.2026 всё что ниже
+    public static boolean isIsomorphic(String s, String t) {
+        int[] map = new int[150];
+        Arrays.fill(map, -1);
+
+        for (int i = 0; i < s.length(); i++) {
+            if (map[s.charAt(i)] != -1 && map[s.charAt(i)] != t.charAt(i))
+                return false;
+            map[s.charAt(i)] = i;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
+        System.out.println("true -> " + isIsomorphic("paperla", "titler"));
+        System.out.println("false -> " + isIsomorphic("baba", "zzzz"));
 
     }
 }

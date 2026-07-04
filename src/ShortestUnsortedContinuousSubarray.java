@@ -84,5 +84,7 @@ public class ShortestUnsortedContinuousSubarray {
         System.out.println(findUnsortedSubarray(new int[]{1, 2}));
         System.out.println(findUnsortedSubarray(new int[]{2, 1}));
         System.out.println(findUnsortedSubarray(new int[]{1, 3, 5, 4, 2, 6, 7}));
+
+
     }
 }

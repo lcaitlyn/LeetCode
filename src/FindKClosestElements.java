@@ -105,44 +105,70 @@ public class FindKClosestElements {
 
 //    upd. 05.04.2026 всё что ниже сегодня сделал в качестве подготовки (перерешываю задачи)
 
-    private static int binarySearch(int[] arr, int x) {
-        int l = 0, r = arr.length - 1;
-        while (l <= r) {
-            int med = (r - l) / 2 + l;
-            if (arr[med] == x) return med;
-            if (arr[med] < x){
-                l = med + 1;
-            } else {
-                r = med - 1;
-            }
-        }
+//    private static int binarySearch(int[] arr, int x) {
+//        int l = 0, r = arr.length - 1;
+//        while (l <= r) {
+//            int med = (r - l) / 2 + l;
+//            if (arr[med] == x) return med;
+//            if (arr[med] < x){
+//                l = med + 1;
+//            } else {
+//                r = med - 1;
+//            }
+//        }
+//
+//        if (l == 0) return l;
+//        if (r == arr.length - 1) return r;
+//        if (Math.abs(arr[l] - x) < Math.abs(arr[r] - x)) return l;
+//        return r;
+//    }
 
-        if (l == 0) return l;
-        if (r == arr.length - 1) return r;
-        if (Math.abs(arr[l] - x) < Math.abs(arr[r] - x)) return l;
-        return r;
-    }
+//    public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+//        List<Integer> list = new ArrayList<>();
+//
+//        int med = binarySearch(arr, x);
+//        int l = med, r = med;
+//        for (int i = 0; i < k - 1; i++) {
+//            if (l == 0) r++;
+//            else if (r == arr.length - 1) l--;
+//            else if (Math.abs(arr[l - 1] - x) < Math.abs(arr[r + 1] - x)) l--;
+//            else if (Math.abs(arr[l - 1] - x) > Math.abs(arr[r + 1] - x)) r++;
+//            else l--;
+//        }
+//
+//        while (l <= r) {
+//            list.add(arr[l]);
+//            l++;
+//        }
+//
+//        return list;
+//    }
+
+    //  upd. 16.06.2026
+
+//    пытаюсь понять как сразу сделать его быстрым
+//    посмотрел я решения до этого, всё равно до конца не впер.
+//    понял только почему int r = arr.length - k
 
     public static List<Integer> findClosestElements(int[] arr, int k, int x) {
         List<Integer> list = new ArrayList<>();
-
-        int med = binarySearch(arr, x);
-        int l = med, r = med;
-        for (int i = 0; i < k - 1; i++) {
-            if (l == 0) r++;
-            else if (r == arr.length - 1) l--;
-            else if (Math.abs(arr[l - 1] - x) < Math.abs(arr[r + 1] - x)) l--;
-            else if (Math.abs(arr[l - 1] - x) > Math.abs(arr[r + 1] - x)) r++;
-            else l--;
-        }
+        int l = 0, r = arr.length - 1;
 
         while (l <= r) {
-            list.add(arr[l]);
-            l++;
+            int med = (r - l) / 2 + l;
         }
+
+        int[][] a = new int[4][2];
+        Arrays.sort(a, Comparator.comparingInt(b -> b[0]));
+        List<int []> lust = new ArrayList<>();
+        lust.add(new int[]{1,2});
+        int[][] array = (int[][]) lust.toArray();
 
         return list;
     }
+
+
+
 
     public static void main(String[] args) {
 //        System.out.println(findClosestElements(new int[]{1, 2, 3, 5, 6}, 3, 3));

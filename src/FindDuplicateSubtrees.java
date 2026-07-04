@@ -77,4 +77,63 @@ public class FindDuplicateSubtrees {
 //    крч он вот эти он будет сравнивать если будет совпадения по мапе (т.е когда их будет 2), то запишет в
 //    результат
 
+//    upd 02.07.2026 готовлюсь ко стаже
+//    бля ахах ща снова начал решать эту здачу вот что получилось (коменты были ранее написаны этого текста):
+
+    // бля хз как я такое решал.
+// надо подумать
+// мб проиндексировать их? по их руту. типо все у кого одна и та же цифра
+// встречается и тех между собой сравнивать
+// бля конечно размножаться проверки
+// ну да ладно потом думать буду как улучшить
+
+// бля вообще хз
+
+// ебать посмотрел своё решение ебать там бля вообще на другом лвле
+
+//    private boolean isSame(TreeNode a, TreeNode b) {
+//        if (a == null && b == null) return true;
+//        if (a == null || b == null) return false;
+//
+//        if (a.val != b.val) return false;
+//        if (!isSame(a.left, b.left)) return false;
+//        return isSame(a.right, b.right);
+//    }
+//
+//    private void rec(Map<Integer, List<TreeNode>> map, TreeNode node) {
+//        if (node == null) return;
+//
+//        List<TreeNode> list = map.getOrDefault(node.val, new ArrayList<>());
+//        list.add(node);
+//        map.put(node.val, list);
+//
+//        rec(map, node.left);
+//        rec(map, node.right);
+//    }
+//
+//    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+//        List<TreeNode> list = new ArrayList<>();
+//
+//        Map<Integer, List<TreeNode>> map = new HashMap<>();
+//        rec(map, root);
+//
+//        for (List<TreeNode> l : map.values()) {
+//            for (int i = 0; i < list.size(); i++) {
+//                for (int j = i + 1; j < list.size(); j++) {
+//                    if (isSame(l.get(i), l.get(j))) {
+//                        list.add(l.get(i));
+//                        list.add(l.get(j));
+//                        i = j;
+//                    }
+//                }
+//            }
+//        }
+//
+//        return list;
+//    }
+
+//    и вот снова эта функция isSame
+//    то есть я думаю так же как и тогда, а решал я эту задачу 2 октрбря 2025 а сегодня 2 июля 2026
+//    хотя я думал я прокачался тут, хотя спроавдливости ради деревья я за эти полгода не особо решад
+
 }

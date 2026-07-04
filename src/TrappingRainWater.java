@@ -41,8 +41,50 @@ public class TrappingRainWater {
 //    beats 100%, memory 9.6% runtime 0ms
 
 
+//    public static int trap(int[] height) {
+//        int res = 0;
+//        int l = 0;
+//
+//        while (l < height.length && height[l] == 0)
+//            l++;
+//
+//        int m = l, r = l;
+//
+//        while (r < height.length) {
+//            if (height[r] >= height[l]) {
+//                m = l + 1;
+//                while (m < r) {
+//                    res += height[l] - height[m];
+//                    m++;
+//                }
+//                l = r;
+//            } else {
+//                while (m > l && height[m] < height[r]) {
+//                    res += height[r] - height[m];
+//                    height[m] = height[r];
+//                    m--;
+//                }
+//                m = r;
+//            }
+//            r++;
+//        }
+//        return res;
+//    }
+
+
+//    upd 5.06.2026
+//    крч перешал заново и вот что получилось
+
+//    beats 59.12% runtime 1ms memory 67%
+//    крч на 1мс медленее, но тут вообще slidingWindow по сути
+//    но зато сам пришел без подсказок
+
+//    бля лол, теперь понял как старое решение делал( просто по бокам поднимал бортики (собирал в кучу))
+//    а то что я щас сделал вообще другой подход нахуй
+
+
     public static void main(String[] args) {
         System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
-        System.out.println(trap(new int[]{4,2,0,3,2,5}));
+        System.out.println(trap(new int[]{4, 2, 0, 3, 2, 5}));
     }
 }
